@@ -30,7 +30,8 @@ public class HomeController : Controller
         return View();
     }
     
-    // страница с выводом дискретнего спектра (жёстко нейронка насрала)
+    // страница с выводом дискретнего спектра (жёстко нейронка насрала) и обратного
+    // тут будут общие графики наверное
     [HttpGet("Analyze")]
     public IActionResult Analyze(string fileName)
     {
@@ -62,6 +63,7 @@ public class HomeController : Controller
         }
     }
     
+    // это гет-запрос, чтобы получить ДПФ, на него страница analyze делает fetch
     [HttpGet("GetDiscreteSpectrum")]
     public IActionResult CreateDiscreteSpectrum(string fileName)
     {
@@ -77,7 +79,7 @@ public class HomeController : Controller
         return Json(new { ok = true, magnitudes = spectrum });
     }
     
-    // Эту хуйню проект срёт сам
+    // Эту хуйню проект срёт сам, не обращай внимания, можно даже удалить
     public IActionResult Privacy()
     {
         return View();
