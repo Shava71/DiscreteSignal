@@ -9,21 +9,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a4b2a69b-1286-4f09-877d-38069d94a944" name="Changes" comment="">
+    <list default="true" id="a4b2a69b-1286-4f09-877d-38069d94a944" name="Changes" comment="add comments">
+      <change afterPath="$PROJECT_DIR$/DiscreteSignal/Service/Implementation/AmplitudeFrequencyResponseService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DiscreteSignal/Service/Interface/IAmplitudeFrequencyResponseService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DiscreteSignal/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DiscreteSignal/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscreteSignal/DiscreteSignal.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/DiscreteSignal/DiscreteSignal.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscreteSignal/Service/Implementation/AudioStorageService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscreteSignal/Service/Implementation/AudioStorageService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscreteSignal/Controllers/HomeController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscreteSignal/Controllers/HomeController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscreteSignal/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscreteSignal/Program.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DiscreteSignal/Service/Implementation/DiscreteSpectrumService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscreteSignal/Service/Implementation/DiscreteSpectrumService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscreteSignal/Views/Home/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/DiscreteSignal/Views/Home/Index.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscreteSignal/Service/Interface/IDiscreteSpectrumService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscreteSignal/Service/Interface/IDiscreteSpectrumService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscreteSignal/Views/Home/Analyze.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/DiscreteSignal/Views/Home/Analyze.cshtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DiscreteSignal/bin/Debug/net9.0/DiscreteSignal.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DiscreteSignal/bin/Debug/net9.0/DiscreteSignal.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DiscreteSignal/bin/Debug/net9.0/DiscreteSignal.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/DiscreteSignal/bin/Debug/net9.0/DiscreteSignal.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DiscreteSignal/bin/Debug/net9.0/DiscreteSignal.staticwebassets.endpoints.json" beforeDir="false" afterPath="$PROJECT_DIR$/DiscreteSignal/bin/Debug/net9.0/DiscreteSignal.staticwebassets.endpoints.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DiscreteSignal/bin/Debug/net9.0/DiscreteSignal.staticwebassets.runtime.json" beforeDir="false" afterPath="$PROJECT_DIR$/DiscreteSignal/bin/Debug/net9.0/DiscreteSignal.staticwebassets.runtime.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DiscreteSignal/obj/Debug/net9.0/DiscreteSignal.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscreteSignal/obj/Debug/net9.0/DiscreteSignal.AssemblyInfo.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DiscreteSignal/obj/Debug/net9.0/DiscreteSignal.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/DiscreteSignal/obj/Debug/net9.0/DiscreteSignal.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscreteSignal/obj/Debug/net9.0/DiscreteSignal.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/DiscreteSignal/obj/Debug/net9.0/DiscreteSignal.csproj.CoreCompileInputs.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DiscreteSignal/obj/Debug/net9.0/DiscreteSignal.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/DiscreteSignal/obj/Debug/net9.0/DiscreteSignal.csproj.FileListAbsolute.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DiscreteSignal/obj/Debug/net9.0/DiscreteSignal.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DiscreteSignal/obj/Debug/net9.0/DiscreteSignal.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DiscreteSignal/obj/Debug/net9.0/DiscreteSignal.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/DiscreteSignal/obj/Debug/net9.0/DiscreteSignal.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscreteSignal/obj/Debug/net9.0/rbcswa.dswa.cache.json" beforeDir="false" afterPath="$PROJECT_DIR$/DiscreteSignal/obj/Debug/net9.0/rbcswa.dswa.cache.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DiscreteSignal/obj/Debug/net9.0/ref/DiscreteSignal.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DiscreteSignal/obj/Debug/net9.0/ref/DiscreteSignal.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DiscreteSignal/obj/Debug/net9.0/refint/DiscreteSignal.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DiscreteSignal/obj/Debug/net9.0/refint/DiscreteSignal.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DiscreteSignal/obj/Debug/net9.0/rjimswa.dswa.cache.json" beforeDir="false" afterPath="$PROJECT_DIR$/DiscreteSignal/obj/Debug/net9.0/rjimswa.dswa.cache.json" afterDir="false" />
@@ -34,7 +39,6 @@
       <change beforePath="$PROJECT_DIR$/DiscreteSignal/obj/Debug/net9.0/staticwebassets.build.json" beforeDir="false" afterPath="$PROJECT_DIR$/DiscreteSignal/obj/Debug/net9.0/staticwebassets.build.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DiscreteSignal/obj/Debug/net9.0/staticwebassets.build.json.cache" beforeDir="false" afterPath="$PROJECT_DIR$/DiscreteSignal/obj/Debug/net9.0/staticwebassets.build.json.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DiscreteSignal/obj/Debug/net9.0/staticwebassets.development.json" beforeDir="false" afterPath="$PROJECT_DIR$/DiscreteSignal/obj/Debug/net9.0/staticwebassets.development.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiscreteSignal/wwwroot/uploads/audio_20250908_061401.webm" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,8 +63,12 @@
     "accountId": "14560438-db0a-4ac2-8816-6f741c9abf49"
   }
 }]]></component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///Users/mac/Desktop/Study/7 сем/Кодирование/лб1/DiscreteSignal/DiscreteSignal/Controllers/HomeController.cs" root0="SKIP_HIGHLIGHTING" />
+  </component>
+  <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="Toolset" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
@@ -149,15 +157,36 @@
       <workItem from="1757311256209" duration="110000" />
       <workItem from="1757311441842" duration="85000" />
       <workItem from="1757311542663" duration="282000" />
-      <workItem from="1757311838290" duration="5279000" />
+      <workItem from="1757311838290" duration="8725000" />
     </task>
+    <task id="LOCAL-00001" summary="fix wav analyze">
+      <option name="closed" value="true" />
+      <created>1757323915683</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1757323915683</updated>
+    </task>
+    <task id="LOCAL-00002" summary="add comments">
+      <option name="closed" value="true" />
+      <created>1757324064296</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1757324064296</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+    <MESSAGE value="fix wav analyze" />
+    <MESSAGE value="add comments" />
+    <option name="LAST_COMMIT_MESSAGE" value="add comments" />
   </component>
 </project>

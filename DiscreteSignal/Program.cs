@@ -22,6 +22,7 @@ builder.Services.AddControllersWithViews();
 // За Transient, Scoped, Singleton почитаешь уже сам (нам в проекте везде нужен Scoped)
 builder.Services.AddScoped<IAudioStorageService, AudioStorageService>();
 builder.Services.AddScoped<IDiscreteSpectrumService, DiscreteSpectrumService>();
+builder.Services.AddScoped<IAmplitudeFrequencyResponseService, AmplitudeFrequencyResponseService>();
 
 var app = builder.Build();
 

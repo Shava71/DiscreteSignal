@@ -1,49 +1,77 @@
 using DiscreteSignal.Service.Interface;
 using NAudio.Dsp;
 using NAudio.Wave;
+using System.Numerics;
+using Complex = System.Numerics.Complex;
 
 namespace DiscreteSignal.Service.Implementation;
 
 public class DiscreteSpectrumService : IDiscreteSpectrumService
 {
-    // тут нейронка насрала свой код (пусть пока будет заглушкой)
-    public double[] ComputeSpectrum(string filePath, int fftSize = 2048)
+    /// <summary>
+    /// Вычисляет амплитудный спектр сигнала из WAV-файла с окном длиной N отсчетов
+    /// </summary>
+    /// <param name="filePath">Путь к WAV-файлу</param>
+    /// <param name="windowSize">Длина окна N</param>
+    /// <returns>Список амплитуд спектра для каждого окна</returns>
+    public List<double[]> ComputeSpectrum(string filePath, int windowSize = 1024)
     {
         if (!File.Exists(filePath))
-            throw new FileNotFoundException("Файл не найден", filePath);
+            throw new FileNotFoundException(filePath);
 
-        // Используем только WaveFileReader (кроссплатформенный)
-        using var reader = new WaveFileReader(filePath);
-
-        var buffer = new float[fftSize];
-        int read = 0;
-        for (int i = 0; i < fftSize;)
+        // Считываем WAV-файл через NAudio
+        List<double> samples = new();
+        using (var reader = new AudioFileReader(filePath))
         {
-            var sample = reader.ReadNextSampleFrame();
-            if (sample == null) break;
-            buffer[i++] = sample[0]; // берём первый канал
-            read++;
+            float[] buffer = new float[reader.WaveFormat.SampleRate]; // буфер на 1 сек
+            int read;
+            while ((read = reader.Read(buffer, 0, buffer.Length)) > 0)
+            {
+                for (int i = 0; i < read; i++)
+                    samples.Add(buffer[i]);
+            }
         }
 
-        // Преобразуем в комплексные числа
-        var complex = new Complex[fftSize];
-        for (int i = 0; i < fftSize; i++)
+        // Разбиваем сигнал на окна длиной N и считаем ДПФ
+        List<double[]> spectrums = new();
+        int totalSamples = samples.Count;
+        for (int start = 0; start < totalSamples; start += windowSize)
         {
-            complex[i].X = i < read ? buffer[i] : 0;
-            complex[i].Y = 0;
+            int len = Math.Min(windowSize, totalSamples - start);
+            double[] window = new double[windowSize];
+            for (int i = 0; i < len; i++)
+                window[i] = samples[start + i];
+            // Если окно меньше N, дополняем нулями
+            for (int i = len; i < windowSize; i++)
+                window[i] = 0;
+
+            var spectrum = DFT(window);
+            spectrums.Add(spectrum);
         }
 
-        // Hamming window
-        for (int i = 0; i < fftSize; i++)
-            complex[i].X *= (float)(0.54 - 0.46 * Math.Cos(2 * Math.PI * i / (fftSize - 1)));
+        return spectrums;
+    }
 
-        // FFT
-        FastFourierTransform.FFT(true, (int)Math.Log2(fftSize), complex);
-
-        var magnitudes = new double[fftSize / 2];
-        for (int i = 0; i < fftSize / 2; i++)
-            magnitudes[i] = Math.Sqrt(complex[i].X * complex[i].X + complex[i].Y * complex[i].Y);
-
+    /// <summary>
+    /// Дискретное преобразование Фурье (ДПФ)
+    /// </summary>
+    /// <param name="x">Массив временных отсчетов</param>
+    /// <returns>Массив амплитуд спектра (модуль комплексных чисел)</returns>
+    private double[] DFT(double[] x)
+    {
+        int N = x.Length;
+        double[] magnitudes = new double[N];
+        for (int k = 0; k < N; k++)
+        {
+            Complex sum = Complex.Zero;
+            for (int n = 0; n < N; n++)
+            {
+                double angle = -2.0 * Math.PI * k * n / N;
+                sum += x[n] * Complex.Exp(new Complex(0, angle));
+            }
+            // magnitudes[k] = sum.Magnitude / N; // нормировка по 1/N
+            magnitudes[k] = sum.Magnitude;
+        }
         return magnitudes;
     }
 }
