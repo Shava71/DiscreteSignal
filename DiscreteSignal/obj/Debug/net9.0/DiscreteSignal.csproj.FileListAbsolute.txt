@@ -301,9 +301,5 @@
 /Users/mac/Desktop/Study/7 сем/Кодирование/лб1/DiscreteSignal/DiscreteSignal/obj/Debug/net9.0/DiscreteSignal.genruntimeconfig.cache
 /Users/mac/Desktop/Study/7 сем/Кодирование/лб1/DiscreteSignal/DiscreteSignal/obj/Debug/net9.0/ref/DiscreteSignal.dll
 /Users/mac/Desktop/Study/7 сем/Кодирование/лб1/DiscreteSignal/DiscreteSignal/obj/Debug/net9.0/DiscreteSignal.sourcelink.json
-/Users/mac/Desktop/Study/7 сем/Кодирование/лб1/DiscreteSignal/DiscreteSignal/obj/Debug/net9.0/compressed/1pshepcem4-to6prmisdm.gz
-/Users/mac/Desktop/Study/7 сем/Кодирование/лб1/DiscreteSignal/DiscreteSignal/obj/Debug/net9.0/compressed/i08gol0cf5-75nfqq6nai.gz
-/Users/mac/Desktop/Study/7 сем/Кодирование/лб1/DiscreteSignal/DiscreteSignal/obj/Debug/net9.0/compressed/amxvvafcht-ggn92st1dc.gz
-/Users/mac/Desktop/Study/7 сем/Кодирование/лб1/DiscreteSignal/DiscreteSignal/obj/Debug/net9.0/compressed/zd5adgh9oc-9gnad36011.gz
-/Users/mac/Desktop/Study/7 сем/Кодирование/лб1/DiscreteSignal/DiscreteSignal/obj/Debug/net9.0/compressed/ja7lg5049v-wv5otsl04m.gz
-/Users/mac/Desktop/Study/7 сем/Кодирование/лб1/DiscreteSignal/DiscreteSignal/obj/Debug/net9.0/compressed/idr9bixruw-ph1nuhavv9.gz
+/Users/mac/Desktop/Study/7 сем/Кодирование/лб1/DiscreteSignal/DiscreteSignal/obj/Debug/net9.0/compressed/d9xa4epzcb-jf2191xo2r.gz
+/Users/mac/Desktop/Study/7 сем/Кодирование/лб1/DiscreteSignal/DiscreteSignal/obj/Debug/net9.0/compressed/q09rfulqn3-e4lrc16qmh.gz

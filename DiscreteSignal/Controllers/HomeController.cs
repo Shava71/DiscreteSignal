@@ -11,6 +11,7 @@ public class HomeController : Controller
     private readonly IAudioStorageService _audioStorageService;
     private readonly IDiscreteSpectrumService _spectrumService;
     private readonly IAmplitudeFrequencyResponseService _amplitudeFrequencyResponseService;
+    private readonly IInverseDiscreteFourierTransformService _idftService;
 
     // Передача интерфейсов в конструктор класса необходим для автоматической
     // подстановки соответствующих классов через ServiceProvider
@@ -18,12 +19,15 @@ public class HomeController : Controller
     public HomeController(ILogger<HomeController> logger, 
         IAudioStorageService audioStorageService, 
         IDiscreteSpectrumService spectrumService,
-        IAmplitudeFrequencyResponseService amplitudeFrequencyResponseService)
+        IAmplitudeFrequencyResponseService amplitudeFrequencyResponseService,
+        IInverseDiscreteFourierTransformService idftService
+        )
     {
         _logger = logger;
         _audioStorageService = audioStorageService;
         _spectrumService = spectrumService;
         _amplitudeFrequencyResponseService = amplitudeFrequencyResponseService;
+        _idftService = idftService;
     }
     
     // Главная страница с возможность записи голоса / загрузки файла с голосом
@@ -68,7 +72,7 @@ public class HomeController : Controller
     
     // это гет-запрос, чтобы получить ДПФ, на него страница analyze делает fetch
     [HttpGet("GetDiscreteSpectrumWindow")]
-    public IActionResult GetDiscreteSpectrumWindow(string fileName,int windowIndex = 0, int windowSize = 1024)
+    public IActionResult GetDiscreteSpectrumWindow(string fileName, int windowIndex = 0, int windowSize = 1024)
     {
         if (string.IsNullOrWhiteSpace(fileName))
             return BadRequest("Не указано имя файла");
@@ -77,7 +81,7 @@ public class HomeController : Controller
             return NotFound("Файл не найден");
 
         var path = _audioStorageService.GetFullPath(fileName);
-        var allSpectrums = _spectrumService.ComputeSpectrum(path, windowSize);
+        var allSpectrums = _spectrumService.ComputeSpectrumMagnitude(path, windowSize);
 
         if (windowIndex < 0 || windowIndex >= allSpectrums.Count)
             return BadRequest("Некорректный индекс окна");
@@ -85,8 +89,26 @@ public class HomeController : Controller
         return Json(new { ok = true, magnitudes = allSpectrums[windowIndex] });
     }
     
-    [HttpGet("GetAmplitudeFrequencyResponse")]
-    public IActionResult GetAmplitudeFrequencyResponse(string fileName, int windowSize = 1024)
+    [HttpGet("GetRawSamples")]
+    public IActionResult GetRawSamples(string fileName, int maxCount = 10000)
+    {
+        if (string.IsNullOrWhiteSpace(fileName))
+            return Json(new { ok = false, message = "Не указано имя файла" });
+
+        if (!_audioStorageService.Exists(fileName))
+            return Json(new { ok = false, message = "Файл не найден" });
+
+        var path = _audioStorageService.GetFullPath(fileName);
+        var samples = _spectrumService.GetRawSamples(path, maxCount);
+
+        return Json(new { ok = true, samples });
+    }
+    
+    /// <summary>
+    /// Получение временного сигнала после обратного ДПФ (проверка корректности восстановления)
+    /// </summary>
+    [HttpGet("GetInverseDFTWindow")]
+    public IActionResult GetInverseDFTWindow(string fileName, int windowIndex = 0, int windowSize = 1024)
     {
         if (string.IsNullOrWhiteSpace(fileName))
             return BadRequest("Не указано имя файла");
@@ -95,15 +117,39 @@ public class HomeController : Controller
             return NotFound("Файл не найден");
 
         var path = _audioStorageService.GetFullPath(fileName);
-        var spectrum = _spectrumService.ComputeSpectrum(path, windowSize);
+        var complexSpectrums = _spectrumService.ComputeSpectrumComplex(path, windowSize);
 
-        return Json(new
-        {
-            ok = true,
-            magnitudes = spectrum,
-            windowSize = windowSize
-        });
+        if (windowIndex < 0 || windowIndex >= complexSpectrums.Count)
+            return BadRequest("Некорректный индекс окна");
+
+        var spectrum = complexSpectrums[windowIndex];
+        var restored = _idftService.IDFT(spectrum);
+
+        // Берем только действительную часть, т.к. результат должен быть вещественным
+        var signal = restored.Select(c => c.Real).ToArray();
+
+        return Json(new { ok = true, signal });
     }
+    
+    // [HttpGet("GetAmplitudeFrequencyResponse")]
+    // public IActionResult GetAmplitudeFrequencyResponse(string fileName, int windowSize = 1024)
+    // {
+    //     if (string.IsNullOrWhiteSpace(fileName))
+    //         return BadRequest("Не указано имя файла");
+    //
+    //     if (!_audioStorageService.Exists(fileName))
+    //         return NotFound("Файл не найден");
+    //
+    //     var path = _audioStorageService.GetFullPath(fileName);
+    //     var spectrum = _spectrumService.ComputeSpectrum(path, windowSize);
+    //
+    //     return Json(new
+    //     {
+    //         ok = true,
+    //         magnitudes = spectrum,
+    //         windowSize = windowSize
+    //     });
+    // }
     
     // Эту хуйню проект срёт сам, не обращай внимания, можно даже удалить
     public IActionResult Privacy()

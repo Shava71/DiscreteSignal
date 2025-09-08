@@ -11,10 +11,21 @@
     <label>Длина окна N:
         <input type="number" id="windowSize" value="1024" min="64" step="64"/>
     </label>
-    <button id="btnAnalyze">Построить АЧХ</button>
+    <label>Окно:
+        <input type="number" id="windowIndex" value="0" min="0"/>
+    </label>
+    <button id="btnAnalyze">Построить графики</button>
 </div>
 
-<canvas id="spectrum" width="800" height="300"></canvas>
+<div style="margin-top: 20px;">
+    <h3>Амплитудный спектр (ДПФ)</h3>
+    <canvas id="spectrumChart" width="800" height="300"></canvas>
+</div>
+
+<div style="margin-top: 20px;">
+    <h3>Временной сигнал (ОДПФ)</h3>
+    <canvas id="signalChart" width="800" height="300"></canvas>
+</div>
 
 @section Scripts {
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -23,58 +34,102 @@
             const fileName = "@fileName";
             const btnAnalyze = document.getElementById('btnAnalyze');
             const windowSizeInput = document.getElementById('windowSize');
-            const ctx = document.getElementById('spectrum').getContext('2d');
-            let chart;
+            const windowIndexInput = document.getElementById('windowIndex');
 
-            async function drawAmplitudeResponse() {
-                const windowSize = parseInt(windowSizeInput.value);
+            const spectrumCtx = document.getElementById('spectrumChart').getContext('2d');
+            const signalCtx = document.getElementById('signalChart').getContext('2d');
+            let spectrumChart, signalChart;
 
-                const resp = await fetch(`/GetAmplitudeFrequencyResponse?fileName=${encodeURIComponent(fileName)}&windowSize=${windowSize}`);
+            async function fetchSpectrum(windowSize, windowIndex) {
+                const resp = await fetch(`/GetDiscreteSpectrumWindow?fileName=${encodeURIComponent(fileName)}&windowIndex=${windowIndex}&windowSize=${windowSize}`);
+                return await resp.json();
+            }
+
+            async function fetchInverseDFT(windowSize, windowIndex) {
+                const resp = await fetch(`/GetInverseDFTWindow?fileName=${encodeURIComponent(fileName)}&windowIndex=${windowIndex}&windowSize=${windowSize}`);
+                return await resp.json();
+            }
+            
+            async function fetchSimpleRaw(){
+                const resp = await fetch(`/GetRawSamples?fileName=${encodeURIComponent(fileName)}`);
                 const data = await resp.json();
+                return data;
+            }
 
-                if (!data.ok) {
-                    alert('Ошибка: не удалось получить АЧХ');
+            async function drawCharts() {
+                const windowSize = parseInt(windowSizeInput.value);
+                const windowIndex = parseInt(windowIndexInput.value);
+
+                const [spectrumData, signalData] = await Promise.all([
+                    fetchSpectrum(windowSize, windowIndex),
+                    fetchInverseDFT(windowSize, windowIndex)
+                ]);
+                
+                var simpleRaw = await fetchSimpleRaw();
+                if (!simpleRaw.ok) {
+                    alert("Не удалось получить сэмплы");
                     return;
                 }
 
-                // частоты для оси X
-                const sampleRate = 44100; // если хочешь, можешь возвращать из API
-                const freqs = data.magnitudes.map((_, i) => (i * sampleRate / windowSize).toFixed(0));
+                if (!spectrumData.ok || !signalData.ok) {
+                    alert('Ошибка анализа (ДПФ или ОДПФ)');
+                    return;
+                }
 
-                if (chart) chart.destroy();
-
-                chart = new Chart(ctx, {
+                // === График спектра (ДПФ) ===
+                const freqs = spectrumData.magnitudes.map((_, i) => i);
+                if (spectrumChart) spectrumChart.destroy();
+                spectrumChart = new Chart(spectrumCtx, {
                     type: 'line',
                     data: {
                         labels: freqs,
                         datasets: [{
                             label: 'Амплитуда',
-                            data: data.magnitudes,
-                            fill: false,
+                            data: spectrumData.magnitudes,
                             borderColor: 'blue',
+                            borderWidth: 1,
                             pointRadius: 0,
+                            fill: false,
                             tension: 0.2
                         }]
                     },
                     options: {
                         responsive: true,
                         scales: {
-                            x: {
-                                ticks: {
-                                    callback: (val, idx) => idx % 32 === 0 ? freqs[idx] : ''
-                                },
-                                title: { display: true, text: 'Частота (Гц)' }
-                            },
-                            y: {
-                                beginAtZero: true,
-                                title: { display: true, text: 'Амплитуда (норм.)' }
-                            }
+                            x: { display: false },
+                            y: { beginAtZero: true }
+                        }
+                    }
+                });
+
+                // === График восстановленного сигнала (ОДПФ) ===
+                const samples = signalData.signal.map((_, i) => i);
+                if (signalChart) signalChart.destroy();
+                signalChart = new Chart(signalCtx, {
+                    type: 'line',
+                    data: {
+                        labels: samples,
+                        datasets: [{
+                            label: 'Сигнал',
+                            data: signalData.signal,
+                            borderColor: 'red',
+                            borderWidth: 1,
+                            pointRadius: 0,
+                            fill: false,
+                            tension: 0
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            x: { display: false },
+                            y: { beginAtZero: true }
                         }
                     }
                 });
             }
 
-            btnAnalyze.addEventListener('click', drawAmplitudeResponse);
+            btnAnalyze.addEventListener('click', drawCharts);
         })();
     </script>
 }
