@@ -300,3 +300,5 @@
 /Users/mac/Desktop/Study/7 сем/Кодирование/лб1/DiscreteSignal/DiscreteSignal/obj/Debug/net9.0/DiscreteSignal.pdb
 /Users/mac/Desktop/Study/7 сем/Кодирование/лб1/DiscreteSignal/DiscreteSignal/obj/Debug/net9.0/DiscreteSignal.genruntimeconfig.cache
 /Users/mac/Desktop/Study/7 сем/Кодирование/лб1/DiscreteSignal/DiscreteSignal/obj/Debug/net9.0/ref/DiscreteSignal.dll
+/Users/mac/Desktop/Study/7 сем/Кодирование/лб1/DiscreteSignal/DiscreteSignal/obj/Debug/net9.0/DiscreteSignal.sourcelink.json
+/Users/mac/Desktop/Study/7 сем/Кодирование/лб1/DiscreteSignal/DiscreteSignal/obj/Debug/net9.0/compressed/1pshepcem4-to6prmisdm.gz

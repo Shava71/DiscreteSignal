@@ -5,8 +5,37 @@
     <projectFile profileName="https">DiscreteSignal /DiscreteSignal.csproj</projectFile>
     <projectFile>DiscreteSignal/DiscreteSignal.csproj</projectFile>
   </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="a4b2a69b-1286-4f09-877d-38069d94a944" name="Changes" comment="" />
+    <list default="true" id="a4b2a69b-1286-4f09-877d-38069d94a944" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.DiscreteSignal/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DiscreteSignal/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscreteSignal/DiscreteSignal.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/DiscreteSignal/DiscreteSignal.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscreteSignal/Service/Implementation/AudioStorageService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscreteSignal/Service/Implementation/AudioStorageService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscreteSignal/Service/Implementation/DiscreteSpectrumService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscreteSignal/Service/Implementation/DiscreteSpectrumService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscreteSignal/Views/Home/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/DiscreteSignal/Views/Home/Index.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscreteSignal/bin/Debug/net9.0/DiscreteSignal.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DiscreteSignal/bin/Debug/net9.0/DiscreteSignal.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscreteSignal/bin/Debug/net9.0/DiscreteSignal.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/DiscreteSignal/bin/Debug/net9.0/DiscreteSignal.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscreteSignal/bin/Debug/net9.0/DiscreteSignal.staticwebassets.endpoints.json" beforeDir="false" afterPath="$PROJECT_DIR$/DiscreteSignal/bin/Debug/net9.0/DiscreteSignal.staticwebassets.endpoints.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscreteSignal/bin/Debug/net9.0/DiscreteSignal.staticwebassets.runtime.json" beforeDir="false" afterPath="$PROJECT_DIR$/DiscreteSignal/bin/Debug/net9.0/DiscreteSignal.staticwebassets.runtime.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscreteSignal/obj/Debug/net9.0/DiscreteSignal.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DiscreteSignal/obj/Debug/net9.0/DiscreteSignal.AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscreteSignal/obj/Debug/net9.0/DiscreteSignal.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/DiscreteSignal/obj/Debug/net9.0/DiscreteSignal.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscreteSignal/obj/Debug/net9.0/DiscreteSignal.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/DiscreteSignal/obj/Debug/net9.0/DiscreteSignal.csproj.FileListAbsolute.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscreteSignal/obj/Debug/net9.0/DiscreteSignal.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DiscreteSignal/obj/Debug/net9.0/DiscreteSignal.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscreteSignal/obj/Debug/net9.0/DiscreteSignal.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/DiscreteSignal/obj/Debug/net9.0/DiscreteSignal.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscreteSignal/obj/Debug/net9.0/ref/DiscreteSignal.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DiscreteSignal/obj/Debug/net9.0/ref/DiscreteSignal.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscreteSignal/obj/Debug/net9.0/refint/DiscreteSignal.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DiscreteSignal/obj/Debug/net9.0/refint/DiscreteSignal.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscreteSignal/obj/Debug/net9.0/rjimswa.dswa.cache.json" beforeDir="false" afterPath="$PROJECT_DIR$/DiscreteSignal/obj/Debug/net9.0/rjimswa.dswa.cache.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscreteSignal/obj/Debug/net9.0/rjsmcshtml.dswa.cache.json" beforeDir="false" afterPath="$PROJECT_DIR$/DiscreteSignal/obj/Debug/net9.0/rjsmcshtml.dswa.cache.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscreteSignal/obj/Debug/net9.0/rjsmrazor.dswa.cache.json" beforeDir="false" afterPath="$PROJECT_DIR$/DiscreteSignal/obj/Debug/net9.0/rjsmrazor.dswa.cache.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscreteSignal/obj/Debug/net9.0/rpswa.dswa.cache.json" beforeDir="false" afterPath="$PROJECT_DIR$/DiscreteSignal/obj/Debug/net9.0/rpswa.dswa.cache.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscreteSignal/obj/Debug/net9.0/staticwebassets.build.endpoints.json" beforeDir="false" afterPath="$PROJECT_DIR$/DiscreteSignal/obj/Debug/net9.0/staticwebassets.build.endpoints.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscreteSignal/obj/Debug/net9.0/staticwebassets.build.json" beforeDir="false" afterPath="$PROJECT_DIR$/DiscreteSignal/obj/Debug/net9.0/staticwebassets.build.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscreteSignal/obj/Debug/net9.0/staticwebassets.build.json.cache" beforeDir="false" afterPath="$PROJECT_DIR$/DiscreteSignal/obj/Debug/net9.0/staticwebassets.build.json.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscreteSignal/obj/Debug/net9.0/staticwebassets.development.json" beforeDir="false" afterPath="$PROJECT_DIR$/DiscreteSignal/obj/Debug/net9.0/staticwebassets.development.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiscreteSignal/wwwroot/uploads/audio_20250908_061401.webm" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,6 +44,21 @@
   <component name="DpaMonitoringSettings">
     <option name="firstShow" value="false" />
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "Shava71"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Shava71/DiscreteSignal.git",
+    "accountId": "14560438-db0a-4ac2-8816-6f741c9abf49"
+  }
+}]]></component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="Toolset" />
   </component>
@@ -22,20 +66,26 @@
   &quot;associatedIndex&quot;: 3
 }</component>
   <component name="ProjectId" id="32P8uX2CJFMeIAITF7NFTY9TKnC" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;.NET Launch Settings Profile.DiscreteSignal: https.executor&quot;: &quot;Run&quot;,
-    &quot;.NET Project.DiscreteSignal.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/mac/Desktop/Study/7 сем/Кодирование/лб1/DiscreteSignal&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    ".NET Launch Settings Profile.DiscreteSignal: https.executor": "Run",
+    ".NET Project.DiscreteSignal.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/Users/mac/Desktop/Study/7 сем/Кодирование/лб1/DiscreteSignal",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected=".NET Launch Settings Profile.DiscreteSignal: https">
     <configuration name="DiscreteSignal" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="" />
@@ -99,6 +149,7 @@
       <workItem from="1757311256209" duration="110000" />
       <workItem from="1757311441842" duration="85000" />
       <workItem from="1757311542663" duration="282000" />
+      <workItem from="1757311838290" duration="5279000" />
     </task>
     <servers />
   </component>

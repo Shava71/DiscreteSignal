@@ -10,17 +10,20 @@
     <button id="btnStop" disabled>Остановить</button>
     <span id="recStatus" style="margin-left:10px;"></span>
     <audio id="preview" controls style="display:none; margin-top:10px; width:100%"></audio>
+    <br/>
+    <button id="btnAnalyze" style="display:none; margin-top:10px;">Анализировать (ДПФ)</button>
 </div>
 
 <hr />
 
 <div>
-    <h3>Загрузка файла</h3>
+    <h3>Загрузка WAV файла</h3>
     <form id="uploadForm" method="post" enctype="multipart/form-data" action="/Upload">
-        <input type="file" name="audio" id="fileInput" accept="audio/*" />
+        <input type="file" name="audio" id="fileInput" accept=".wav" />
         <button type="submit">Загрузить</button>
     </form>
     <p id="uploadResult"></p>
+    <button id="btnAnalyzeUpload" style="display:none; margin-top:10px;">Анализировать (ДПФ)</button>
 </div>
 
 @section Scripts {
@@ -30,54 +33,128 @@
             const btnStop = document.getElementById('btnStop');
             const recStatus = document.getElementById('recStatus');
             const preview = document.getElementById('preview');
+            const btnAnalyze = document.getElementById('btnAnalyze');
 
-            let mediaRecorder, chunks = [];
+            let audioContext, mediaStream, source, processor;
+            let audioData = [];
+            let lastFileName = null;
 
             btnStart.addEventListener('click', async () => {
-                try {
-                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                    mediaRecorder = new MediaRecorder(stream);
-                    chunks = [];
-                    mediaRecorder.ondataavailable = e => chunks.push(e.data);
-                    mediaRecorder.onstop = async () => {
-                        const blob = new Blob(chunks, { type: 'audio/webm' });
-                        preview.src = URL.createObjectURL(blob);
-                        preview.style.display = 'block';
-                        await uploadBlob(blob);
-                    };
-                    mediaRecorder.start();
-                    recStatus.textContent = 'Идёт запись...';
-                    btnStart.disabled = true;
-                    btnStop.disabled = false;
-                } catch (err) {
-                    alert('Не удалось получить доступ к микрофону');
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                mediaStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                source = audioContext.createMediaStreamSource(mediaStream);
+                processor = audioContext.createScriptProcessor(4096, 1, 1);
+
+                processor.onaudioprocess = e => {
+                    const channelData = e.inputBuffer.getChannelData(0);
+                    audioData.push(new Float32Array(channelData));
+                };
+
+                source.connect(processor);
+                processor.connect(audioContext.destination);
+
+                recStatus.textContent = 'Идёт запись...';
+                btnStart.disabled = true;
+                btnStop.disabled = false;
+            });
+
+            btnStop.addEventListener('click', async () => {
+                processor.disconnect();
+                source.disconnect();
+                mediaStream.getTracks().forEach(t => t.stop());
+
+                const wavBlob = encodeWAV(audioData, audioContext.sampleRate);
+                preview.src = URL.createObjectURL(wavBlob);
+                preview.style.display = 'block';
+
+                lastFileName = await uploadBlob(wavBlob);
+                if (lastFileName) {
+                    btnAnalyze.style.display = 'inline-block';
+                }
+
+                audioData = [];
+                recStatus.textContent = '';
+                btnStart.disabled = false;
+                btnStop.disabled = true;
+            });
+
+            btnAnalyze.addEventListener('click', () => {
+                if (lastFileName) {
+                    window.location.href = `/Analyze?fileName=${encodeURIComponent(lastFileName)}`;
                 }
             });
 
-            btnStop.addEventListener('click', () => {
-                mediaRecorder.stop();
-                btnStart.disabled = false;
-                btnStop.disabled = true;
-                recStatus.textContent = 'Обработка...';
-            });
+            function encodeWAV(samplesArray, sampleRate) {
+                let samples = flattenArray(samplesArray);
+                let buffer = new ArrayBuffer(44 + samples.length * 2);
+                let view = new DataView(buffer);
+
+                /* RIFF header */
+                writeString(view, 0, 'RIFF');
+                view.setUint32(4, 36 + samples.length * 2, true);
+                writeString(view, 8, 'WAVE');
+                writeString(view, 12, 'fmt ');
+                view.setUint32(16, 16, true); // PCM chunk size
+                view.setUint16(20, 1, true);  // PCM format
+                view.setUint16(22, 1, true);  // channels
+                view.setUint32(24, sampleRate, true);
+                view.setUint32(28, sampleRate * 2, true); // byte rate
+                view.setUint16(32, 2, true); // block align
+                view.setUint16(34, 16, true); // bits per sample
+                writeString(view, 36, 'data');
+                view.setUint32(40, samples.length * 2, true);
+
+                floatTo16BitPCM(view, 44, samples);
+
+                return new Blob([view], { type: 'audio/wav' });
+            }
+
+            function flattenArray(channelBuffers) {
+                let length = channelBuffers.reduce((sum, arr) => sum + arr.length, 0);
+                let result = new Float32Array(length);
+                let offset = 0;
+                for (let i = 0; i < channelBuffers.length; i++) {
+                    result.set(channelBuffers[i], offset);
+                    offset += channelBuffers[i].length;
+                }
+                return result;
+            }
+
+            function floatTo16BitPCM(output, offset, input) {
+                for (let i = 0; i < input.length; i++, offset += 2) {
+                    let s = Math.max(-1, Math.min(1, input[i]));
+                    output.setInt16(offset, s < 0 ? s * 0x8000 : s * 0x7FFF, true);
+                }
+            }
+
+            function writeString(view, offset, string) {
+                for (let i = 0; i < string.length; i++) {
+                    view.setUint8(offset + i, string.charCodeAt(i));
+                }
+            }
 
             async function uploadBlob(blob) {
                 const fd = new FormData();
-                fd.append('audio', blob, 'recording.webm');
+                fd.append('audio', blob, 'recording.wav');
                 const resp = await fetch('/Upload', { method: 'POST', body: fd });
                 if (!resp.ok) {
                     recStatus.textContent = 'Ошибка загрузки';
-                    return;
+                    return null;
                 }
                 const data = await resp.json();
                 if (data.ok) {
                     recStatus.innerHTML = `Файл загружен. <a href="/Analyze?fileName=${encodeURIComponent(data.fileName)}">Анализ</a>`;
+                    return data.fileName;
                 } else {
                     recStatus.textContent = data.message;
+                    return null;
                 }
             }
 
+            // Загрузка файла через форму
             const uploadForm = document.getElementById('uploadForm');
+            const btnAnalyzeUpload = document.getElementById('btnAnalyzeUpload');
+
             uploadForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 const fd = new FormData(uploadForm);
@@ -86,10 +163,19 @@
                 if (data.ok) {
                     document.getElementById('uploadResult').innerHTML =
                         `Файл загружен. <a href="/Analyze?fileName=${encodeURIComponent(data.fileName)}">Анализ</a>`;
+                    lastFileName = data.fileName;
+                    btnAnalyzeUpload.style.display = 'inline-block';
                 } else {
                     document.getElementById('uploadResult').textContent = data.message;
                 }
             });
+
+            btnAnalyzeUpload.addEventListener('click', () => {
+                if (lastFileName) {
+                    window.location.href = `/Analyze?fileName=${encodeURIComponent(lastFileName)}`;
+                }
+            });
+
         })();
     </script>
 }

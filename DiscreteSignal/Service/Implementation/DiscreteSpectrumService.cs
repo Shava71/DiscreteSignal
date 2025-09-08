@@ -12,25 +12,32 @@ public class DiscreteSpectrumService : IDiscreteSpectrumService
         if (!File.Exists(filePath))
             throw new FileNotFoundException("Файл не найден", filePath);
 
-        // ✅ NAudio.Wave — AudioFileReader умеет читать WAV/MP3/OGG/M4A и конвертировать в float
-        using var reader = new AudioFileReader(filePath);
+        // Используем только WaveFileReader (кроссплатформенный)
+        using var reader = new WaveFileReader(filePath);
 
         var buffer = new float[fftSize];
-        int read = reader.Read(buffer, 0, fftSize);
+        int read = 0;
+        for (int i = 0; i < fftSize;)
+        {
+            var sample = reader.ReadNextSampleFrame();
+            if (sample == null) break;
+            buffer[i++] = sample[0]; // берём первый канал
+            read++;
+        }
 
-        // ✅ NAudio.Dsp — FastFourierTransform выполняет FFT
+        // Преобразуем в комплексные числа
         var complex = new Complex[fftSize];
         for (int i = 0; i < fftSize; i++)
         {
-            complex[i].X = buffer[i];
+            complex[i].X = i < read ? buffer[i] : 0;
             complex[i].Y = 0;
         }
 
-        // Hamming window (сам код)
+        // Hamming window
         for (int i = 0; i < fftSize; i++)
             complex[i].X *= (float)(0.54 - 0.46 * Math.Cos(2 * Math.PI * i / (fftSize - 1)));
 
-        // ✅ NAudio.Dsp.FastFourierTransform
+        // FFT
         FastFourierTransform.FFT(true, (int)Math.Log2(fftSize), complex);
 
         var magnitudes = new double[fftSize / 2];
