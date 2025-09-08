@@ -1,0 +1,95 @@
+﻿@{
+    ViewData["Title"] = "Запись или загрузка аудио";
+}
+
+<h1>Запись или загрузка аудио</h1>
+
+<div>
+    <h3>Запись с микрофона</h3>
+    <button id="btnStart">Начать запись</button>
+    <button id="btnStop" disabled>Остановить</button>
+    <span id="recStatus" style="margin-left:10px;"></span>
+    <audio id="preview" controls style="display:none; margin-top:10px; width:100%"></audio>
+</div>
+
+<hr />
+
+<div>
+    <h3>Загрузка файла</h3>
+    <form id="uploadForm" method="post" enctype="multipart/form-data" action="/Upload">
+        <input type="file" name="audio" id="fileInput" accept="audio/*" />
+        <button type="submit">Загрузить</button>
+    </form>
+    <p id="uploadResult"></p>
+</div>
+
+@section Scripts {
+    <script>
+        (() => {
+            const btnStart = document.getElementById('btnStart');
+            const btnStop = document.getElementById('btnStop');
+            const recStatus = document.getElementById('recStatus');
+            const preview = document.getElementById('preview');
+
+            let mediaRecorder, chunks = [];
+
+            btnStart.addEventListener('click', async () => {
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    mediaRecorder = new MediaRecorder(stream);
+                    chunks = [];
+                    mediaRecorder.ondataavailable = e => chunks.push(e.data);
+                    mediaRecorder.onstop = async () => {
+                        const blob = new Blob(chunks, { type: 'audio/webm' });
+                        preview.src = URL.createObjectURL(blob);
+                        preview.style.display = 'block';
+                        await uploadBlob(blob);
+                    };
+                    mediaRecorder.start();
+                    recStatus.textContent = 'Идёт запись...';
+                    btnStart.disabled = true;
+                    btnStop.disabled = false;
+                } catch (err) {
+                    alert('Не удалось получить доступ к микрофону');
+                }
+            });
+
+            btnStop.addEventListener('click', () => {
+                mediaRecorder.stop();
+                btnStart.disabled = false;
+                btnStop.disabled = true;
+                recStatus.textContent = 'Обработка...';
+            });
+
+            async function uploadBlob(blob) {
+                const fd = new FormData();
+                fd.append('audio', blob, 'recording.webm');
+                const resp = await fetch('/Upload', { method: 'POST', body: fd });
+                if (!resp.ok) {
+                    recStatus.textContent = 'Ошибка загрузки';
+                    return;
+                }
+                const data = await resp.json();
+                if (data.ok) {
+                    recStatus.innerHTML = `Файл загружен. <a href="/Analyze?fileName=${encodeURIComponent(data.fileName)}">Анализ</a>`;
+                } else {
+                    recStatus.textContent = data.message;
+                }
+            }
+
+            const uploadForm = document.getElementById('uploadForm');
+            uploadForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const fd = new FormData(uploadForm);
+                const resp = await fetch(uploadForm.action, { method: 'POST', body: fd });
+                const data = await resp.json();
+                if (data.ok) {
+                    document.getElementById('uploadResult').innerHTML =
+                        `Файл загружен. <a href="/Analyze?fileName=${encodeURIComponent(data.fileName)}">Анализ</a>`;
+                } else {
+                    document.getElementById('uploadResult').textContent = data.message;
+                }
+            });
+        })();
+    </script>
+}

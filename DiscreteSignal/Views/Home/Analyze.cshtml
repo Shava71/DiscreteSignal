@@ -1,0 +1,48 @@
+@* @model TModel *@
+
+@{
+    ViewData["Title"] = "Анализ аудио";
+    var fileName = ViewData["FileName"]?.ToString();
+}
+
+<h1>Анализ аудио</h1>
+
+<p>Файл: <strong>@fileName</strong></p>
+
+<canvas id="spectrum" width="800" height="300"></canvas>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        (async () => {
+            const fileName = "@fileName";
+            if (!fileName) return;
+
+            const resp = await fetch(`/GetDiscreteSpectrum?fileName=${encodeURIComponent(fileName)}`);
+            const data = await resp.json();
+            if (!data.ok) {
+                alert('Ошибка анализа');
+                return;
+            }
+
+            const ctx = document.getElementById('spectrum').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: data.magnitudes.map((_, i) => i),
+                    datasets: [{
+                        label: 'Амплитуда',
+                        data: data.magnitudes,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        x: { display: false },
+                        y: { beginAtZero: true }
+                    }
+                }
+            });
+        })();
+    </script>
+}
