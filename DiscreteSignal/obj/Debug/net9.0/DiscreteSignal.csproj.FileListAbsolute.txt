@@ -611,3 +611,9 @@ C:\Users\danii\source\repos\daniilboriskin21-eng\DiscreteSignal\DiscreteSignal\o
 C:\Users\danii\source\repos\daniilboriskin21-eng\DiscreteSignal\DiscreteSignal\obj\Debug\net9.0\Discrete.B4C02001.Up2Date
 C:\Users\danii\source\repos\daniilboriskin21-eng\DiscreteSignal\DiscreteSignal\obj\Debug\net9.0\DiscreteSignal.genruntimeconfig.cache
 C:\Users\danii\source\repos\daniilboriskin21-eng\DiscreteSignal\DiscreteSignal\obj\Debug\net9.0\ref\DiscreteSignal.dll
+C:\Users\danii\source\repos\daniilboriskin21-eng\DiscreteSignal\DiscreteSignal\obj\Debug\net9.0\compressed\vvhleqb4rm-com7q03r90.gz
+C:\Users\danii\source\repos\daniilboriskin21-eng\DiscreteSignal\DiscreteSignal\obj\Debug\net9.0\compressed\fac9fgriy9-ji7ephljw4.gz
+C:\Users\danii\source\repos\daniilboriskin21-eng\DiscreteSignal\DiscreteSignal\obj\Debug\net9.0\compressed\ghehun8zed-xvwpi5tr6k.gz
+C:\Users\danii\source\repos\daniilboriskin21-eng\DiscreteSignal\DiscreteSignal\obj\Debug\net9.0\compressed\k04fswc9m3-ik38mgr7nq.gz
+C:\Users\danii\source\repos\daniilboriskin21-eng\DiscreteSignal\DiscreteSignal\obj\Debug\net9.0\compressed\if76o7pbrl-0liyfsx7vi.gz
+C:\Users\danii\source\repos\daniilboriskin21-eng\DiscreteSignal\DiscreteSignal\obj\Debug\net9.0\compressed\lfu49lvn31-upwi5rzejt.gz

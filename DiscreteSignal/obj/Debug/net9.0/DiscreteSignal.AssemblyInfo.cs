@@ -16,7 +16,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DiscreteSignal")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d32ed3c402e1bcdebc0691df8039b34f4cbbf220")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d74fd10a2cdba803bb660d57f0651b8a6d1f815e")]
 [assembly: System.Reflection.AssemblyProductAttribute("DiscreteSignal")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DiscreteSignal")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
