@@ -1,7 +1,8 @@
-using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
 using DiscreteSignal.Models;
+using DiscreteSignal.Service.Implementation;
 using DiscreteSignal.Service.Interface;
+using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace DiscreteSignal.Controllers;
 
@@ -12,6 +13,7 @@ public class HomeController : Controller
     private readonly IDiscreteSpectrumService _spectrumService;
     private readonly IAmplitudeFrequencyResponseService _amplitudeFrequencyResponseService;
     private readonly IInverseDiscreteFourierTransformService _idftService;
+    private readonly IWavReaderService _wavReaderService;
 
     // Передача интерфейсов в конструктор класса необходим для автоматической
     // подстановки соответствующих классов через ServiceProvider
@@ -20,14 +22,15 @@ public class HomeController : Controller
         IAudioStorageService audioStorageService, 
         IDiscreteSpectrumService spectrumService,
         IAmplitudeFrequencyResponseService amplitudeFrequencyResponseService,
-        IInverseDiscreteFourierTransformService idftService
-        )
+        IInverseDiscreteFourierTransformService idftService,
+        IWavReaderService wavReaderService)
     {
         _logger = logger;
         _audioStorageService = audioStorageService;
         _spectrumService = spectrumService;
         _amplitudeFrequencyResponseService = amplitudeFrequencyResponseService;
         _idftService = idftService;
+        _wavReaderService = wavReaderService;
     }
     
     // Главная страница с возможность записи голоса / загрузки файла с голосом
@@ -130,7 +133,20 @@ public class HomeController : Controller
 
         return Json(new { ok = true, signal });
     }
-    
+
+    [HttpGet("GetWavSamples")]
+    public IActionResult GetWavSamples(string fileName)
+    {
+        if (string.IsNullOrWhiteSpace(fileName))
+            return BadRequest("Не указано имя файла");
+        if (!_audioStorageService.Exists(fileName))
+            return NotFound("Файл не найден");
+
+        var path = _audioStorageService.GetFullPath(fileName);
+        var samples = _wavReaderService.ReadWavSamples(path);
+        return Json(new { ok = true, samples });
+    }
+
     // [HttpGet("GetAmplitudeFrequencyResponse")]
     // public IActionResult GetAmplitudeFrequencyResponse(string fileName, int windowSize = 1024)
     // {
@@ -150,7 +166,7 @@ public class HomeController : Controller
     //         windowSize = windowSize
     //     });
     // }
-    
+
     // Эту хуйню проект срёт сам, не обращай внимания, можно даже удалить
     public IActionResult Privacy()
     {

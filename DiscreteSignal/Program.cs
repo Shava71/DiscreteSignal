@@ -24,6 +24,7 @@ builder.Services.AddScoped<IAudioStorageService, AudioStorageService>();
 builder.Services.AddScoped<IDiscreteSpectrumService, DiscreteSpectrumService>();
 builder.Services.AddScoped<IAmplitudeFrequencyResponseService, AmplitudeFrequencyResponseService>();
 builder.Services.AddScoped<IInverseDiscreteFourierTransformService, InverseDiscreteFourierTransformService>();
+builder.Services.AddScoped<IWavReaderService, WavReaderService>();
 
 
 var app = builder.Build();
