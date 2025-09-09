@@ -1,26 +1,31 @@
 {
   "format": 1,
   "restore": {
-    "/Users/mac/Desktop/Study/7 сем/Кодирование/лб1/DiscreteSignal/DiscreteSignal/DiscreteSignal.csproj": {}
+    "C:\\Users\\danii\\source\\repos\\daniilboriskin21-eng\\DiscreteSignal\\DiscreteSignal\\DiscreteSignal.csproj": {}
   },
   "projects": {
-    "/Users/mac/Desktop/Study/7 сем/Кодирование/лб1/DiscreteSignal/DiscreteSignal/DiscreteSignal.csproj": {
+    "C:\\Users\\danii\\source\\repos\\daniilboriskin21-eng\\DiscreteSignal\\DiscreteSignal\\DiscreteSignal.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/mac/Desktop/Study/7 сем/Кодирование/лб1/DiscreteSignal/DiscreteSignal/DiscreteSignal.csproj",
+        "projectUniqueName": "C:\\Users\\danii\\source\\repos\\daniilboriskin21-eng\\DiscreteSignal\\DiscreteSignal\\DiscreteSignal.csproj",
         "projectName": "DiscreteSignal",
-        "projectPath": "/Users/mac/Desktop/Study/7 сем/Кодирование/лб1/DiscreteSignal/DiscreteSignal/DiscreteSignal.csproj",
-        "packagesPath": "/Users/mac/.nuget/packages/",
-        "outputPath": "/Users/mac/Desktop/Study/7 сем/Кодирование/лб1/DiscreteSignal/DiscreteSignal/obj/",
+        "projectPath": "C:\\Users\\danii\\source\\repos\\daniilboriskin21-eng\\DiscreteSignal\\DiscreteSignal\\DiscreteSignal.csproj",
+        "packagesPath": "C:\\Users\\danii\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\danii\\source\\repos\\daniilboriskin21-eng\\DiscreteSignal\\DiscreteSignal\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "/Users/mac/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\danii\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
         ],
         "sources": {
-          "/usr/local/share/dotnet/library-packs": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -89,7 +94,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.300/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
